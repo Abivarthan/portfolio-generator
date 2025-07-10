@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abivarthan | Dark Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6d28d9;
+      --primary-dark: #5b21b6;
+      --secondary: #10b981;
+      --dark: #0f172a;
+      --dark-alt: #1e293b;
+      --light: #e2e8f0;
+      --light-alt: #f1f5f9;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --glass: rgba(15, 23, 42, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--light);
+      background-color: var(--dark);
+      transition: var(--transition);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 7rem 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 70px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      color: var(--light-alt);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%), 
+                  url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .hero-image img {
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      color: var(--light-alt);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark-alt);
+      color: var(--light);
+      transition: var(--transition);
+      border: 1px solid var(--glass-border);
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      border-color: transparent;
+    }
+
+    /* About Section */
+    #about {
+      background: var(--dark-alt);
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-image {
+      flex: 1;
+    }
+
+    .about-image img {
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: var(--light-alt);
+      line-height: 1.8;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .skill {
+      background: rgba(109, 40, 217, 0.2);
+      color: var(--primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition);
+    }
+
+    .skill:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--dark-alt);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--glass-border);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      border-color: var(--primary);
+    }
+
+    .project-image {
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 1.8rem;
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-description {
+      color: var(--light-alt);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .tech-item {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: var(--dark-alt);
+    }
+
+    .contact-container {
+      display: flex;
+      gap: 4rem;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-form {
+      flex: 1;
+      background: var(--dark);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(109, 40, 217, 0.2);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition);
+    }
+
+    .contact-item:hover .contact-icon {
+      background: var(--primary);
+      color: white;
+    }
+
+    .contact-details h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-details p {
+      color: var(--light-alt);
+    }
+
+    .form-group {
+      margin-bottom: 1.8rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      font-family: inherit;
+      transition: var(--transition);
+      background: rgba(15, 23, 42, 0.5);
+      color: var(--light);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.3);
+    }
+
+    textarea.form-control {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      padding: 4rem 0 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-link {
+      transition: var(--transition);
+      color: var(--light-alt);
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-social-link {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark-alt);
+      color: var(--light);
+      transition: var(--transition);
+      border: 1px solid var(--glass-border);
+    }
+
+    .footer-social-link:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+      border-color: transparent;
+    }
+
+    .copyright {
+      color: var(--light-alt);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero-content, .about-content, .contact-container {
+        flex-direction: column;
+      }
+
+      .hero-image, .about-image {
+        order: -1;
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 3rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 5rem 0;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--dark-alt);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        transition: var(--transition);
+        z-index: 1000;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-links {
+        flex-direction: column;
+      }
+
+      .contact-form {
+        padding: 1.8rem;
+      }
+
+      .hero-title {
+        font-size: 2.8rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+      }
+    }
+  .download-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+  }
+  
+  .download-btn {
+    padding: 10px 15px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+  
+  .download-btn:hover {
+    background: #3a7bc8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  
+  .download-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+  }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="#" class="logo" id="user-name">AV</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title animate">
+            Hi, I'm <span id="user-name" style="color: var(--primary);">Abivarthan</span>
+          </h1>
+          <h2 id="user-title" class="hero-subtitle animate delay-1">Full Stack Developer</h2>
+          <p id="user-bio" class="animate delay-2">
+            I build exceptional digital experiences with modern technologies, focusing on performance, accessibility, and sleek design.
+          </p>
+          <div class="hero-cta animate delay-3">
+            <a href="#projects" class="btn btn-primary">
+              <i class="fas fa-eye"></i> View My Work
+            </a>
+            <a href="#contact" class="btn btn-outline">
+              <i class="fas fa-paper-plane"></i> Contact Me
+            </a>
+          </div>
+          <div class="social-links animate delay-3" id="user-socials">
+            <!-- Links inserted dynamically -->
+          </div>
+        </div>
+        <div class="hero-image animate">
+          <img id="user-photo" src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?auto=format&fit=crop&w=880&q=80" alt="Developer working" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title animate">About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p class="animate delay-1" id="user-about-1">
+            I'm a full-stack developer with 6 years of experience building web applications and digital products.
+          </p>
+          <p class="animate delay-1" id="user-about-2">
+            I've worked with startups and enterprises across various industries.
+          </p>
+          <p class="animate delay-2" id="user-about-3">
+            When I'm not coding, you'll find me contributing to open-source projects or hiking.
+          </p>
+          <div class="skills animate delay-3" id="user-skills">
+            <!-- Skills inserted dynamically -->
+          </div>
+        </div>
+        <div class="about-image animate delay-2">
+          <img id="user-about-image" src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=880&q=80" alt="About me" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title animate">Featured Projects</h2>
+      <div class="projects-grid" id="user-projects">
+        <!-- Projects inserted dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title animate">Get In Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item animate delay-1">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Email</h3>
+              <p id="user-email">Abi@example.com</p>
+            </div>
+          </div>
+          <div class="contact-item animate delay-2">
+            <div class="contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Phone</h3>
+              <p id="user-phone">+1 (555) 987-6543</p>
+            </div>
+          </div>
+          <div class="contact-item animate delay-3">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Location</h3>
+              <p id="user-location">Portland, OR</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form animate delay-2">
+          <form id="contactForm"  method="post">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Your Name" id="form-name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Your Email" id="form-email" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Subject" id="form-subject">
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" placeholder="Your Message" id="form-message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="#" class="footer-logo" id="user-name">Abivarthan</a>
+        <div class="footer-links">
+          <a href="#hero" class="footer-link">Home</a>
+          <a href="#about" class="footer-link">About</a>
+          <a href="#projects" class="footer-link">Projects</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+        <div class="footer-social" id="footer-socials">
+          <!-- Socials inserted dynamically -->
+        </div>
+        <p class="copyright">
+          © <span id="year"></span> <span class="footer-copyright" id="user-name">Abivarthan</span>. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // Close mobile menu when clicking a link
+    navLinksItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Form submission
+    const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const userEmail = JSON.parse(localStorage.getItem("formData"))?.email;
+
+  if (!userEmail) {
+    alert("Email not found. Please fill out the form again.");
+    return;
+  }
+
+  // Set dynamic action URL
+  this.action = `https://formsubmit.co/${userEmail}`;
+  this.method = "POST";
+
+  // Create hidden inputs required by FormSubmit
+  const name = document.getElementById("form-name").value;
+  const email = document.getElementById("form-email").value;
+  const subject = document.getElementById("form-subject").value;
+  const message = document.getElementById("form-message").value;
+
+  // Create and append hidden inputs
+  const hiddenInputs = [
+    ["name", name],
+    ["email", email],
+    ["subject", subject],
+    ["message", message],
+    ["_captcha", "false"], // optional: disable FormSubmit captcha
+    ["_template", "table"] // optional: format nicely
+  ];
+
+  hiddenInputs.forEach(([name, value]) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    contactForm.appendChild(input);
+  });
+
+  // Now submit the form programmatically
+  contactForm.submit();
+});
+
+
+    // Update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate').forEach(element => {
+      observer.observe(element);
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        document.querySelector('header').style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)';
+      } else {
+        document.querySelector('header').style.boxShadow = 'none';
+      }
+    });
+
+  const selectedTemplate = localStorage.getItem("selectedTemplate");
+  const formData = JSON.parse(localStorage.getItem("formData"));
+
+  if (!selectedTemplate || !formData) {
+    alert("Missing template or user data");
+    window.location.href = "index.html";
+  }
+
+ window.onload = function () {
+  const formData = JSON.parse(localStorage.getItem("formData"));
+  if (!formData) {
+    alert("Missing user data. Please fill out the form first.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  const inject = (id, value, attr = "innerText") => {
+    const elements = document.querySelectorAll(`[id="${id}"]`);
+    if (elements.length > 0) {
+      elements.forEach(el => {
+        if (attr === "innerText") {
+          el.innerText = value;
+        } else if (attr === "innerHTML") {
+          el.innerHTML = value;
+        } else {
+          el.setAttribute(attr, value);
+        }
+      });
+    }
+  };
+
+  inject("user-name", formData.name);
+  inject("user-title", formData.title);
+  inject("user-bio", formData.bio);
+  inject("user-about", formData.about);
+  inject("user-email", formData.email);
+  inject("user-phone", formData.phone);
+  inject("user-linkedin", formData.linkedin, "href");
+  inject("user-github", formData.github, "href");
+
+  // Inject user photo
+  if (formData.photo && document.getElementById("user-about-image")) {
+    document.getElementById("user-about-image").src = formData.photo;
+  }
+
+  // Inject skills
+  if (formData.skills && formData.skills.length > 0) {
+    const skillsContainers = [
+      document.getElementById("user-skills"),
+      document.querySelector(".skills"),
+      document.querySelector(".skill-list")
+    ].filter(Boolean);
+
+    skillsContainers.forEach(container => {
+      if (container.classList.contains("skills")) {
+        container.innerHTML = formData.skills.map(skill => 
+          `<span class="skill">${skill}</span>`).join("");
+      } else {
+        container.innerHTML = formData.skills.map(skill => 
+          `<li>${skill}</li>`).join("");
+      }
+    });
+  }
+
+
+  // Inject projects (if any)
+  if (formData.projects && formData.projects.length > 0) {
+    const projectsContainers = [
+      document.getElementById("project-list"),
+      document.getElementById("user-projects"),
+      document.querySelector(".projects-grid"),
+      document.querySelector(".portfolio-grid"),
+      document.querySelector(".project-grid")
+    ].filter(Boolean);
+
+    projectsContainers.forEach(container => {
+      container.innerHTML = formData.projects.map(project => {
+        return `
+          <div class="project-card">
+            ${project.image ? `<div class="project-image"><img src="${project.image}" alt="${project.title}" loading="lazy"></div>` : ''}
+            <div class="project-content">
+              <h3 class="project-title">${project.title}</h3>
+              <p class="project-description">${project.description}</p>
+              ${project.link ? `<a href="${project.link}" target="_blank" class="project-link">View Project</a>` : ''}
+            </div>
+          </div>
+        `;
+      }).join("");
+    });
+  }
+
+  // Update copyright
+  document.querySelectorAll("[id='year'], .copyright-year").forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
+};
+
+// Download functions for all templates
+function downloadHTML() {
+  const formData = JSON.parse(localStorage.getItem("formData"));
+  const fileName = formData?.name ? `${formData.name}-portfolio.html` : "portfolio.html";
+  
+  const content = document.documentElement.outerHTML;
+  const blob = new Blob([content], { type: "text/html" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  a.click();
+}
+
+function downloadPDF() {
+      const formData = JSON.parse(localStorage.getItem("formData"));
+      const fileName = formData?.name ? `${formData.name}-portfolio.pdf` : "portfolio.pdf";
+      const buttons = document.querySelector('.download-buttons');
+
+      buttons.innerHTML = '<button class="download-btn" disabled>Generating PDF...</button>';
+
+      setTimeout(() => {
+        const element = document.body;
+        const opt = {
+          margin: 10,
+          filename: fileName,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, logging: true, useCORS: true, allowTaint: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+          buttons.innerHTML = `
+            <button onclick="downloadHTML()" class="download-btn">Download HTML</button>
+            
+          `;
+        }).catch(err => {
+          console.error("PDF generation failed:", err);
+          buttons.innerHTML = `
+            <button onclick="downloadHTML()" class="download-btn">Download HTML</button>
+           
+          `;
+        });
+      }, 500);
+    }
+  </script>
+
+  <!-- PDF Buttons -->
+  <div class="download-buttons">
+  <button onclick="downloadHTML()" class="download-btn">Download HTML</button>
+  
+</div>
+
+
+  <!-- Include html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</body>
+</html>

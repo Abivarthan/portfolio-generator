@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abivarthan | Modern Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #10b981;
+      --dark: #1e293b;
+      --dark-alt: #334155;
+      --light: #f1f5f9;
+      --light-alt: #f8fafc;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+      transition: var(--transition);
+    }
+
+    body.dark-mode {
+      color: var(--light);
+      background-color: var(--dark);
+    }
+
+    h1, h2, h3, h4 {
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.75rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    body.dark-mode header {
+      background: rgba(30, 41, 59, 0.9);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--dark);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-left: 1rem;
+    }
+
+    body.dark-mode .theme-toggle {
+      color: var(--light);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    body.dark-mode .mobile-menu-btn {
+      color: var(--light);
+    }
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-image {
+      flex: 1;
+      position: relative;
+    }
+
+    .hero-image img {
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      transform: perspective(1000px) rotateY(-10deg);
+      transition: var(--transition);
+    }
+
+    .hero-image:hover img {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      color: var(--dark-alt);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    body.dark-mode .hero-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--light);
+      color: var(--dark);
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    body.dark-mode .social-link {
+      background: var(--dark-alt);
+      color: var(--light);
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* About Section */
+    #about {
+      background: var(--light-alt);
+    }
+
+    body.dark-mode #about {
+      background: var(--dark-alt);
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-image {
+      flex: 1;
+    }
+
+    .about-image img {
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .skill {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    body.dark-mode .project-card {
+      background: var(--dark-alt);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-image {
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-description {
+      color: var(--dark-alt);
+      margin-bottom: 1rem;
+    }
+
+    body.dark-mode .project-description {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-item {
+      background: var(--light);
+      color: var(--dark);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    body.dark-mode .tech-item {
+      background: var(--dark);
+      color: var(--light);
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: var(--light-alt);
+    }
+
+    body.dark-mode #contact {
+      background: var(--dark-alt);
+    }
+
+    .contact-container {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-form {
+      flex: 1;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    body.dark-mode .contact-form {
+      background: var(--dark-alt);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .form-control {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: var(--light);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-link {
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: var(--transition);
+    }
+
+    .footer-social-link:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero-content, .about-content, .contact-container {
+        flex-direction: column;
+      }
+
+      .hero-image, .about-image {
+        order: -1;
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        box-shadow: var(--shadow);
+        transform: translateY(-150%);
+        transition: var(--transition);
+        z-index: 999;
+      }
+
+      body.dark-mode .nav-links {
+        background: var(--dark-alt);
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-links {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  
+  .download-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+  }
+  
+  .download-btn {
+    padding: 10px 15px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+  
+  .download-btn:hover {
+    background: #3a7bc8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  
+  .download-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+  }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+ <header>
+    <div class="container header-container">
+      <a href="#" class="logo" id="user-name">Abivarthan</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title animate">Hi, I'm <span style="color: var(--primary);" id="user-name">Abivarthan</span></h1>
+          <h2 class="hero-subtitle animate delay-1" id="user-title">Frontend Developer & UI Designer</h2>
+          <p class="animate delay-2" id="user-bio">I create beautiful, responsive websites...</p>
+          <div class="hero-cta animate delay-3">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+          </div>
+          <div class="social-links animate delay-3">
+            <a id="user-github" href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a id="user-linkedin" href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+          </div>
+        </div>
+        <div class="hero-image animate">
+            <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=800&q=80" alt="User Photo" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title animate">About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p class="animate delay-1" id="user-about">I'm a passionate frontend developer...</p>
+          <div class="skills animate delay-3" id="user-skills">
+            <!-- Skills injected here -->
+          </div>
+        </div>
+        <div class="about-image animate">
+            <img id="user-photo" src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=880&q=80" alt="About me" loading="lazy">        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title animate">My Projects</h2>
+      <div class="projects-grid" id="project-list">
+        <!-- Projects will be dynamically inserted here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title animate">Get In Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item animate delay-1">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h3>Email</h3>
+              <p id="user-email">example@example.com</p>
+            </div>
+          </div>
+          <div class="contact-item animate delay-2">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <h3>Phone</h3>
+              <p id="user-phone">+91 00000 00000</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form animate delay-2">
+         <form id="contactForm" method="post">
+          <div class="form-group">
+            <input type="text" id="contact-name" class="form-control" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" id="contact-email" class="form-control" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <input type="text" id="contact-subject" class="form-control" placeholder="Subject">
+          </div>
+          <div class="form-group">
+            <textarea id="contact-message" class="form-control" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="#" class="footer-logo" id="user-name">Abivarthan</a>
+        <div class="footer-links">
+          <a href="#hero" class="footer-link">Home</a>
+          <a href="#about" class="footer-link">About</a>
+          <a href="#projects" class="footer-link">Projects</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p class="copyright">© <span id="year"></span> <span id="user-name">Abivarthan</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+   <div class="download-buttons">
+    <button onclick="downloadHTML()" class="download-btn">Download HTML</button>
+    
+  </div>
+
+  <!-- Include html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const themeToggle = document.querySelector('.theme-toggle');
+      const body = document.body;
+
+      if (themeToggle) {
+        if (localStorage.getItem('darkMode') === 'enabled') {
+          body.classList.add('dark-mode');
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeToggle.addEventListener('click', () => {
+          body.classList.toggle('dark-mode');
+
+          if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          } else {
+            localStorage.setItem('darkMode', 'disabled');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+          }
+        });
+      }
+
+      const formData = JSON.parse(localStorage.getItem("formData"));
+      if (!formData) {
+        alert("Missing user data. Please fill out the form first.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      const inject = (id, value, attr = "innerText") => {
+        const elements = document.querySelectorAll(`[id="${id}"]`);
+        elements.forEach(el => {
+          if (attr === "innerText") el.innerText = value;
+          else if (attr === "innerHTML") el.innerHTML = value;
+          else el.setAttribute(attr, value);
+        });
+      };
+
+      inject("user-name", formData.name);
+      inject("user-title", formData.title);
+      inject("user-bio", formData.bio);
+      inject("user-about", formData.about);
+      inject("user-email", formData.email);
+      inject("user-phone", formData.phone);
+      inject("user-linkedin", formData.linkedin, "href");
+      inject("user-github", formData.github, "href");
+      inject("user-photo", formData.photo, "src");
+
+      // Inject user photo
+      if (formData.photo && document.getElementById("user-about-image")) {
+        document.getElementById("user-about-image").src = formData.photo;
+      }
+
+      if (formData.skills && formData.skills.length > 0) {
+        const skillsContainers = [
+          document.getElementById("user-skills"),
+          document.querySelector(".skills"),
+          document.querySelector(".skill-list")
+        ].filter(Boolean);
+
+        skillsContainers.forEach(container => {
+          if (container.classList.contains("skills")) {
+            container.innerHTML = formData.skills.map(skill => `<span class="skill">${skill}</span>`).join("");
+          } else {
+            container.innerHTML = formData.skills.map(skill => `<li>${skill}</li>`).join("");
+          }
+        });
+      }
+
+      if (formData.projects && Array.isArray(formData.projects)) {
+        const projectList = document.getElementById("project-list");
+        projectList.innerHTML = formData.projects.map(project => `
+          <div class="project-card">
+            ${project.image ? `<div class="project-image"><img src="${project.image}" alt="${project.title}" loading="lazy"></div>` : ''}
+            <div class="project-content">
+              <h3 class="project-title">${project.title}</h3>
+              <p class="project-description">${project.description}</p>
+              ${project.link ? `<a href="${project.link}" class="btn btn-outline" target="_blank">View Project</a>` : ''}
+            </div>
+          </div>
+        `).join("");
+      }
+
+      document.querySelectorAll("[id='year'], .copyright-year").forEach(el => {
+        el.textContent = new Date().getFullYear();
+      });
+    });
+
+    function downloadHTML() {
+      const formData = JSON.parse(localStorage.getItem("formData"));
+      const fileName = formData?.name ? `${formData.name}-portfolio.html` : "portfolio.html";
+      const content = document.documentElement.outerHTML;
+      const blob = new Blob([content], { type: "text/html" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = fileName;
+      a.click();
+    }
+
+    function downloadPDF() {
+      const formData = JSON.parse(localStorage.getItem("formData"));
+      const fileName = formData?.name ? `${formData.name}-portfolio.pdf` : "portfolio.pdf";
+      const buttons = document.querySelector('.download-buttons');
+
+      buttons.innerHTML = '<button class="download-btn" disabled>Generating PDF...</button>';
+
+      setTimeout(() => {
+        const element = document.body;
+        const opt = {
+          margin: 10,
+          filename: fileName,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, logging: true, useCORS: true, allowTaint: true },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+          buttons.innerHTML = `
+            <button onclick="downloadHTML()" class="download-btn">Download HTML</button>
+            
+          `;
+        }).catch(err => {
+          console.error("PDF generation failed:", err);
+          buttons.innerHTML = `
+            <button onclick="downloadHTML()" class="download-btn">Download HTML</button>
+           
+          `;
+        });
+      }, 500);
+    }
+    const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const userEmail = JSON.parse(localStorage.getItem("formData"))?.email;
+
+  if (!userEmail) {
+    alert("Email not found. Please fill out the form again.");
+    return;
+  }
+
+  // Set form action dynamically
+  this.action = `https://formsubmit.co/${userEmail}`;
+  this.method = "POST";
+
+  // Get values from your actual input IDs
+  const name = document.getElementById("contact-name").value;
+  const email = document.getElementById("contact-email").value;
+  const message = document.getElementById("contact-message").value;
+
+  // Create and append hidden fields
+  const hiddenInputs = [
+    ["name", name],
+    ["email", email],
+    ["subject", "Portfolio Contact Form"], // optional
+    ["message", message],
+    ["_captcha", "false"],
+    ["_template", "table"]
+  ];
+
+  hiddenInputs.forEach(([name, value]) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    contactForm.appendChild(input);
+  });
+
+  contactForm.submit();
+});
+
+  </script>
+</body>
+</html>

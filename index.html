@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porfolio-Generator</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color:  #1A1C29  ;
+        color: #F5F5F7;
+    }
+    .nav-bar{
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(207, 205, 205);
+    }
+    .nav-bar h1{
+        font-size: 42px;
+        font-weight: 600;
+        color:  #1A1C29  ;
+    }
+    .first-container{
+        margin-top: 20px;
+        text-align: center;
+    }
+    .headline{
+        /* color:rgb(35, 2, 65); */
+        height: 30px;
+        margin: 30px;
+    }
+    .typed-cursor {
+        pointer-events: none;
+        visibility: hidden;
+    }
+    .para{
+        text-align: justify;
+        max-width: 80%;
+        margin-top: 60px;
+    }
+    .Start-Building{
+        font-size: 20px;
+        padding: 15px;
+        border-radius: 20px;
+        border: none;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .Start-Building:hover{
+        background-color: rgb(2, 192, 192);
+        color: white;
+        box-shadow: 0 0 20px aqua, 0 0 30px aqua;
+      transform: scale(1.05);
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    .template-container{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(auto-fit, 450px);
+        gap: 50px;
+    }
+    .templates{
+        width: 450px;
+        height: 450px;
+        background-color: white;
+
+    }
+    .templates h2{
+        color: black;
+        margin: 20px;
+        position: relative;
+        top: 20px;
+    }
+    @media screen and (max-width:500px) {
+        .templates{
+            width: 300px;
+            height: 300px;
+        }
+    }
+    .templates {
+        position: relative;
+        width: 450px;
+        height: 450px;
+        background-color: #fff;
+        padding: 15px;
+        margin: 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .templates:hover {
+        transform: translateY(-5px);
+    }
+    .template-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .select {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        padding: 10px 20px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .templates .perview{
+        position: absolute;
+        left: 20%;
+        bottom: 20px;
+        padding: 10px 20px;
+        text-decoration: underline;
+        color: #4a90e2;
+    }
+    .templates img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+
+    /* footer section css */
+    .footer {
+        margin-top: 50px;
+        background-color: #111;
+        color: #ddd;
+        padding: 60px 20px 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .footer .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 50px;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .footer-about {
+        flex: 1 1 250px;
+    }
+
+    .footer-about .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .footer-about .logo span {
+        color: #4a90e2;
+    }
+
+    .footer-about p {
+        margin-top: 10px;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+
+    .footer-services {
+        flex: 1 1 200px;
+    }
+
+
+    .footer-services h3{
+        color: #fff;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .footer-services ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-services ul li {
+        margin-bottom: 10px;
+    }
+
+    .footer-services ul li a {
+        color: #bbb;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .footer-services ul li a:hover {
+        color: #4a90e2;
+    }
+
+
+    .footer-bottom {
+        margin-top: 40px;
+        border-top: 1px solid #444;
+        padding-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        position: relative;
+        color: #aaa;
+    }
+
+    .back-to-top {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        color: #4a90e2;
+        cursor: pointer;
+        font-size: 18px;
+        transition: 0.3s;
+    }
+
+    .back-to-top:hover {
+        color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .back-to-top {
+            position: static;
+            margin-top: 15px;
+        }
+    }
+
+</style>
+<body>
+    <div class="main-container">
+         <nav class="nav-bar">
+        <h1>Porfolio-Generator</h1>   
+    </nav>
+        <div class="first-container">
+            <h1 class="headline"></h1>
+            <center><h2 class="para">Here, you have the incredible opportunity to craft a truly wonderful portfolio that perfectly showcases your talents, projects, and professional journey. Best of all, this powerful tool is completely free, allowing you to build a stunning online presence without any cost. Start creating your impressive portfolio today and make a lasting impression!</h2></center>
+            <center><button type="submit" class="Start-Building"><a href="#template-container">Start Building</a></button></center>
+        </div>
+        <div class="template-container" id="template-container">
+            <div class="templates" id="template-1" onclick="selectTemplate('minimal')">
+                <h2>Minimal</h2>
+                <a href="perview/perview1.html" class="perview">Perview</a>
+                <button type="submit" class="select">Select</button>
+                <img src="images/minimal.png" alt="minimal">
+            </div>
+            <div class="templates" id="template-2" onclick="selectTemplate('modern')">
+                <h2>Modern</h2>
+                <a href="perview/perview2.html" class="perview">Perview</a>
+                <button type="submit" class="select">Select</button>       
+                <img src="images/modern.png" alt="modern">
+            </div>
+            <div class="templates" id="template-3" onclick="selectTemplate('dark')">
+                <h2>Dark</h2>
+                <a href="perview/perview3.html" class="perview">Perview</a>
+                <button type="submit" class="select">Select</button>           
+                <img src="images/dark.png" alt="dark">
+            </div>
+            <div class="templates" id="template-4" onclick="selectTemplate('creative')">
+                <h2>Creative</h2>
+                <a href="perview/perview4.html" class="perview">Perview</a>
+                <button type="submit" class="select">Select</button>
+                <img src="images/creative.png" alt="creatvie">
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+
+            <!-- About Section -->
+            <div class="footer-about" data-aos="fade-up">
+                <a href="#" class="logo">Abi<span>varthan</span></a>
+                <p>Freelance developer and designer creating digital experiences that matter.</p>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-services" data-aos="fade-up" data-aos-delay="200">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="https://abivarthan.github.io/portfolio/">Web Development</a></li>
+                    <li><a href="https://abivarthan.github.io/portfolio/">UI/UX Design</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Line -->
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> Abivarthan. All Rights Reserved.</p>
+            <div class="back-to-top" onclick="scrollToTop()">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+    const typed = new Typed(".headline", {
+        strings: ["You Can Create Your Own Portfolio For Free !"],
+        typeSpeed: 200,
+        backSpeed: 0,
+        loop: true
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Select all select buttons
+   // Update the selectTemplate function in index.html:
+function selectTemplate(templateName) {
+  if (!templateName) {
+    alert("Please select a template");
+    return;
+  }
+  localStorage.setItem("selectedTemplate", templateName);
+  window.location.href = "detail.html";
+}
+</script>
+
+<!-- FontAwesome CDN (for icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</html>

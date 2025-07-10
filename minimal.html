@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Portfolio</title>
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --primary-dark: #0056b3;
+      --text-color: #333;
+      --text-light: #555;
+      --bg-light: #f5f7fa;
+      --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      background: #fff;
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 0.5rem 1rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 0.3rem 0.8rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      transition: var(--transition);
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      padding: 0.3rem 0;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a:focus::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Hero Section */
+    #hero {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      text-align: center;
+      padding-top: 6rem;
+    }
+
+    #hero h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    #hero p {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      margin-bottom: 2rem;
+      color: var(--text-light);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--primary-color);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: var(--transition);
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn:hover, .btn:focus {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* About Section */
+    #about {
+      background: #fff;
+    }
+
+    #about .container {
+      text-align: center;
+    }
+
+    #about p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+
+    /* Section Headings */
+    .section-heading {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--primary-color);
+    }
+
+    /* Projects Section */
+    #projects {
+      background: var(--bg-light);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .project-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-card-content {
+      padding: 1.5rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: #fff;
+    }
+
+    #contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    #contact input,
+    #contact textarea {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    #contact input:focus,
+    #contact textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    }
+
+    #contact textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Mobile Menu */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      padding: 1rem;
+    }
+
+    .hamburger {
+      width: 25px;
+      height: 3px;
+      background: var(--text-color);
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: var(--text-color);
+      transition: var(--transition);
+    }
+
+    .hamburger::before {
+      top: -8px;
+    }
+
+    .hamburger::after {
+      top: 8px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      section {
+        padding: 4rem 1rem;
+        min-height: auto;
+      }
+
+      #hero {
+        padding-top: 5rem;
+        padding-bottom: 3rem;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-toggle {
+        display: block;
+        position: fixed;
+        top: 0.5rem;
+        right: 1rem;
+        z-index: 1100;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: #fff;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: var(--transition);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul.active {
+        right: 0;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+      }
+
+      nav ul li a {
+        font-size: 1.2rem;
+      }
+
+      .menu-toggle.active .hamburger {
+        background: transparent;
+      }
+
+      .menu-toggle.active .hamburger::before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+
+      .menu-toggle.active .hamburger::after {
+        transform: rotate(-45deg);
+        top: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #hero h1 {
+        font-size: 2.2rem;
+      }
+
+      #hero p {
+        font-size: 1.1rem;
+      }
+
+      .btn {
+        padding: 0.7rem 1.5rem;
+      }
+
+      .project-card img {
+        height: 180px;
+      }
+    }
+    
+    /* Download Buttons */
+    .download-buttons {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 9999;
+    }
+    
+    .download-btn {
+      padding: 10px 15px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .download-btn:hover {
+      background: #3a7bc8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .download-btn:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .download-btn i {
+      font-size: 16px;
+    }
+    #skills{
+      font-size: 28px;
+      text-transform: uppercase;
+      justify-content: space-around;
+      font-weight: 700;
+      color: #5da1ea;
+      max-height: 500px;
+    }
+    .container ul{
+      margin-top:30px;
+      
+    }
+  </style>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <div class="menu-toggle">
+        <div class="hamburger"></div>
+      </div>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="container">
+      <img id="user-photo" src="" alt="Profile Photo" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+      <h1 class="fade-in" id="user-name">Your Name</h1>
+      <p class="fade-in delay-1" id="user-title">Your Professional Title</p>
+      <a href="#contact" class="btn fade-in delay-2">Get in Touch</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-heading">About Me</h2>
+      <p id="user-about">
+        This will be replaced with your about text from the form.
+      </p>
+      <p class="delay-1" id="user-bio">
+        This will be replaced with your bio from the form.
+      </p>
+    
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-heading">My Projects</h2>
+      <div class="project-grid" id="project-list">
+        <!-- Projects will be injected here -->
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-heading">Contact Me</h2>
+      <form id="contactForm" method="post">
+        <div class="form-group">
+          <input type="text" id="contact-name" placeholder="Your Name" required />
+        </div>
+        <div class="form-group">
+          <input type="email" id="contact-email" placeholder="Your Email" required />
+        </div>
+        <div class="form-group">
+          <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <div class="contact-info" style="margin-top: 2rem; text-align: center;">
+        <p id="user-email" style="margin-bottom: 0.5rem;"></p>
+        <p id="user-phone" style="margin-bottom: 0.5rem;"></p>
+        <div style="margin-top: 1rem;">
+          <a id="user-linkedin" href="#" style="margin-right: 1rem;"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          <a id="user-github" href="#"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="year"></span> <span id="footer-name">Your Name</span>. All rights reserved.</p>
+  </footer>
+
+  <!-- Download Buttons -->
+  <div class="download-buttons">
+    <button onclick="downloadHTML()" class="download-btn">
+      <i class="fas fa-file-code"></i> HTML
+    </button>
+    
+    </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const formData = JSON.parse(localStorage.getItem("formData") || "{}");
+
+  // Inject photo
+  if (formData.photo && document.getElementById("user-photo")) {
+    document.getElementById("user-photo").src = formData.photo;
+  }
+
+  // Inject name and title
+  if (formData.name) document.querySelector("h1").textContent = formData.name;
+  if (formData.title) document.querySelector("p").textContent = formData.title;
+
+  // Inject projects
+  const projectGrid = document.querySelector(".project-grid");
+  if (formData.projects && Array.isArray(formData.projects)) {
+    projectGrid.innerHTML = ""; // Clear default cards
+    formData.projects.forEach(project => {
+      const card = document.createElement("div");
+      card.className = "project-card fade-in";
+      card.innerHTML = `
+        <img src="${project.image}" alt="Project Image">
+        <div class="project-card-content">
+          <h3>${project.name}</h3>
+          <p>${project.description}</p>
+        </div>
+      `;
+      projectGrid.appendChild(card);
+    });
+  }
+
+  // Inject skills (optional section)
+  if (formData.skills && Array.isArray(formData.skills)) {
+    const skillsSection = document.createElement("section");
+    skillsSection.id = "skills";
+    skillsSection.innerHTML = `
+      <div class="container">
+        <h2 class="section-heading">My Skills</h2>
+        <ul style="display: flex; flex-wrap: wrap; list-style: none; gap: 1rem; justify-content: center; padding: 0;">
+          ${formData.skills.map(skill => `<li style="background:#007bff;color:white;padding:8px 15px;border-radius:20px;">${skill}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+    document.getElementById("projects").after(skillsSection);
+  }
+});
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('nav ul');
+    
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
+    });
+
+    // Portfolio Data Injection
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get stored data
+      const savedData = localStorage.getItem('formData');
+      if (!savedData) {
+        console.log('No portfolio data found');
+        return;
+      }
+
+      const formData = JSON.parse(savedData);
+      console.log('Loaded portfolio data:', formData);
+
+      // Helper function to inject data
+      function injectData(selector, value, attribute = 'textContent') {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(el => {
+          if (attribute === 'textContent') {
+            el.textContent = value;
+          } else if (attribute === 'innerHTML') {
+            el.innerHTML = value;
+          } else {
+            el.setAttribute(attribute, value);
+          }
+        });
+      }
+
+      // Inject basic info
+      injectData('#user-name', formData.name);
+      injectData('#user-title', formData.title);
+      injectData('#user-bio', formData.bio);
+      injectData('#user-about', formData.about);
+      injectData('#user-email', formData.email);
+      injectData('#user-phone', formData.phone);
+      injectData('#user-linkedin', formData.linkedin, 'href');
+      injectData('#user-github', formData.github, 'href');
+      injectData('#footer-name', formData.name);
+
+      // Inject skills
+      if (formData.skills && formData.skills.length > 0) {
+        const skillsHTML = formData.skills.map(skill => 
+          `<span class="skill-tag" >${skill}</span>`
+        ).join(' ');
+        injectData('#user-skills', skillsHTML, 'innerHTML');
+      }
+
+      // Inject projects
+      if (formData.projects && formData.projects.length > 0) {
+        const projectsHTML = formData.projects.map(project => `
+          <div class="project-card">
+            ${project.image ? `<img src="${project.image}" alt="${project.title}" loading="lazy">` : ''}
+            <div class="project-card-content">
+              <h3>${project.title}</h3>
+              <p>${project.description}</p>
+              ${project.link ? `<a href="${project.link}" target="_blank" class="btn">View Project</a>` : ''}
+            </div>
+          </div>
+        `).join('');
+        injectData('#project-list', projectsHTML, 'innerHTML');
+      }
+ 
+      if (formData.photo) {
+  document.getElementById("user-photo").src = formData.photo;
+}
+
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+
+    // Download functions
+    function downloadHTML() {
+      const formData = JSON.parse(localStorage.getItem('formData')) || {};
+      const fileName = formData.name ? `${formData.name.replace(/\s+/g, '-')}-portfolio.html` : 'portfolio.html';
+      
+      const buttons = document.querySelector('.download-buttons');
+      const originalContent = buttons.innerHTML;
+      buttons.innerHTML = `<button class="download-btn" disabled><i class="fas fa-spinner fa-spin"></i> Generating...</button>`;
+      
+      setTimeout(() => {
+        const content = document.documentElement.outerHTML;
+        const blob = new Blob([content], { type: 'text/html' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        a.click();
+        buttons.innerHTML = originalContent;
+      }, 500);
+    }
+
+    
+
+    // Form submission
+   const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const userEmail = JSON.parse(localStorage.getItem("formData"))?.email;
+
+  if (!userEmail) {
+    alert("Email not found. Please fill out the form again.");
+    return;
+  }
+
+  // Set form action dynamically
+  this.action = `https://formsubmit.co/${userEmail}`;
+  this.method = "POST";
+
+  // Get values from your actual input IDs
+  const name = document.getElementById("contact-name").value;
+  const email = document.getElementById("contact-email").value;
+  const message = document.getElementById("contact-message").value;
+
+  // Create and append hidden fields
+  const hiddenInputs = [
+    ["name", name],
+    ["email", email],
+    ["subject", "Portfolio Contact Form"], // optional
+    ["message", message],
+    ["_captcha", "false"],
+    ["_template", "table"]
+  ];
+
+  hiddenInputs.forEach(([name, value]) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    contactForm.appendChild(input);
+  });
+
+  contactForm.submit();
+});
+
+
+  </script>
+</body>
+</html>
