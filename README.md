@@ -57,7 +57,7 @@ Welcome to **Portfolio Generator** – a dynamic and fully responsive personal p
 git clone https://github.com/abivarthan/portfolio-generator.git
 cd portfolio-generator
 open index.html
-
+```
 
 🙌 Author
 Made with ❤️ by Abivarthan
